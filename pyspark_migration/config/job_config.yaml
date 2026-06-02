@@ -1,0 +1,111 @@
+# Global configuration for PySpark migration jobs
+# Paths are relative to the project root (pyspark_migration/)
+
+fixtures_base: "fixtures"
+
+# Database configuration (for Phase 3+ jobs)
+database:
+  jdbc_url: "jdbc:mysql://127.0.0.1:3306/demo_db"
+  user: "root"
+  password: ""
+  driver: "com.mysql.cj.jdbc.Driver"
+
+# Per-job configuration
+jobs:
+  # ---- Chapter 5 ----
+  filtering1:
+    input_path: "fixtures/Chapter5/currencies.csv"
+    output_path: "output/Chapter5/currencies.csv"
+    input_sep: ";"
+    output_sep: ";"
+    input_encoding: "US-ASCII"
+    output_encoding: "ISO-8859-15"
+    header: false
+
+  filtering2:
+    input_path: "fixtures/Chapter5/currencies.csv"
+    output_path: "output/Chapter5/currencies.csv"
+    reject_path: "output/Chapter5/currency-rejects.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+
+  filtering3:
+    input_path: "fixtures/Chapter5/currencies.csv"
+    eur_output_path: "output/Chapter5/eur-currencies.csv"
+    non_eur_output_path: "output/Chapter5/not-eurcurrencies.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+
+  sorting:
+    input_path: "fixtures/Chapter5/currencies.csv"
+    output_path: "output/Chapter5/sorted-currencies.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+
+  aggregating:
+    input_path: "fixtures/Chapter5/invoices.csv"
+    output_path: "output/Chapter5/customer-invoiced-total.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+
+  normalize:
+    input_path: "fixtures/Chapter5/categories-to-normalise.csv"
+    output_path: "output/Chapter5/normalized-categories.csv"
+    input_sep: "|"
+    output_sep: ";"
+    header: false
+
+  denormalize:
+    input_path: "fixtures/Chapter5/categories-to-denormalize.csv"
+    output_path: "output/Chapter5/denormalized-categories.csv"
+    input_sep: ";"
+    output_sep: "|"
+    header: false
+
+  extract_delimited_fields:
+    input_path: "fixtures/Chapter5/employees.csv"
+    output_path: "output/Chapter5/extract-delimited-fields.csv"
+    input_sep: "|"
+    output_sep: ";"
+    header: false
+
+  find_and_replace:
+    input_path: "fixtures/Chapter5/country-codes.csv"
+    output_path: "output/Chapter5/country-codes-replaced.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+
+  sample_row:
+    input_path: "fixtures/Chapter5/country-codes.csv"
+    output_path: "output/Chapter5/country-codes-sample.csv"
+    input_sep: ";"
+    output_sep: ";"
+    header: false
+    range: "5..10"
+
+  # ---- Chapter 3 ----
+  expressions:
+    input_path: "fixtures/Chapter3/expressions.csv"
+    output_path: "output/Chapter3/expressions-out.xml"
+    input_sep: ";"
+    header: true
+
+  # ---- Chapter 4 ----
+  db_extract:
+    input_table: "products"
+    output_path: "output/Chapter4/products-out.csv"
+    output_sep: ";"
+    header: false
+
+  db2db:
+    input_tables:
+      - "order_lines"
+      - "orders"
+      - "products"
+      - "brands"
+    output_table: "db2db.order_data"
