@@ -78,4 +78,14 @@ class TalendDateTest {
         String result = TalendDate.formatDateLocale("yyyy-MM-dd", d, "en");
         assertEquals("2024-01-15", result);
     }
+
+    @Test
+    void formatDateLocaleUppercaseLanguageCode() {
+        Date d = TalendDate.parseDate("yyyy-MM-dd", "2024-01-15");
+        // Uppercase "EN" and "FR" must resolve to language locales, not country-only
+        String enResult = TalendDate.formatDateLocale("yyyy-MM-dd", d, "EN");
+        assertEquals("2024-01-15", enResult);
+        String frResult = TalendDate.formatDateLocale("yyyy-MM-dd", d, "FR");
+        assertEquals("2024-01-15", frResult);
+    }
 }

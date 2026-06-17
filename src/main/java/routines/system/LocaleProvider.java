@@ -23,9 +23,8 @@ public final class LocaleProvider {
         if (code.contains("_") || code.contains("-")) {
             return Locale.forLanguageTag(code.replace('_', '-'));
         }
-        if (code.length() == 2 && code.equals(code.toUpperCase())) {
-            return new Locale("", code);
-        }
-        return new Locale(code.toLowerCase());
+        // Bare 2-letter codes: treat as language (en, EN, fr, FR, …).
+        // Locale.forLanguageTag normalises case automatically.
+        return Locale.forLanguageTag(code.toLowerCase());
     }
 }
