@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chapter3_migration"
+version = "0.1.0"
+description = "Python + Polars + Dagster migration of the Talend Chapter 3 example jobs"
+requires-python = ">=3.10"
+dependencies = [
+    "dagster>=1.13,<2",
+    "dagster-webserver>=1.13,<2",
+    "polars>=1.0",
+    "lxml>=5.0",
+    # Reading Excel workbooks. fastexcel (calamine) reads the legacy .xls
+    # fixtures; openpyxl is available for .xlsx should the fixtures be
+    # regenerated in that format.
+    "fastexcel>=0.10",
+    "openpyxl>=3.1",
+    # Generating the legacy .xls fixtures deterministically.
+    "xlwt>=1.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["chapter3_migration*"]
+
+[tool.dagster]
+module_name = "chapter3_migration.definitions"
+code_location_name = "chapter3_migration"
